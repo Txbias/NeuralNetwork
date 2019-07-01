@@ -355,6 +355,46 @@ public class NeuralNetwork {
     }
 
     /**
+     * deletes all Connections of the neuralNetwork
+     */
+    private void deleteConnections() {
+        for(WorkingNeuron wn : outputLayer.neurons) {
+            wn.deleteConnections();
+        }
+
+        if(hiddenLayers.size() != 0) {
+            for(int i = 0; i < hiddenLayers.size(); i++) {
+                for(WorkingNeuron wn : hiddenLayers.get(i).neurons) {
+                    wn.deleteConnections();
+                }
+            }
+        }
+    }
+
+    /**
+     * The NeuralNetwork predicts outputs for given inputs
+     */
+    public float[] predict(float... inputs) {
+        if(inputs.length != inputLayer.neurons.size()) {
+            throw new IllegalArgumentException();
+        }
+        if(!hasInputLayer | !hasOutputLayer) {
+            System.out.println("Please create first the required Layers");
+            throw new NullPointerException();
+        }
+
+        float[] output = new float[outputLayer.neurons.size()];
+        for(int i = 0; i < inputLayer.neurons.size(); i++) {
+            inputLayer.neurons.get(i).setValue(inputs[i]);
+        }
+        for(int j = 0; j < outputLayer.neurons.size(); j++) {
+            output[j] = outputLayer.neurons.get(j).getValue();
+        }
+
+        return output;
+    }
+
+    /**
      * Loads a NeuralNetwork from a file
      */
     public static NeuralNetwork load(String path) {
@@ -398,7 +438,6 @@ public class NeuralNetwork {
             }
         }
 
-        //TODO: meta String auswerten
         String[] metavalues = meta.split("~");
         int inputneurons = 0;
         int hiddenlayer = 0;
@@ -448,22 +487,6 @@ public class NeuralNetwork {
         return nn;
     }
 
-    /**
-     * deletes all Connections of the neuralNetwork
-     */
-    private void deleteConnections() {
-        for(WorkingNeuron wn : outputLayer.neurons) {
-            wn.deleteConnections();
-        }
-
-        if(hiddenLayers.size() != 0) {
-            for(int i = 0; i < hiddenLayers.size(); i++) {
-                for(WorkingNeuron wn : hiddenLayers.get(i).neurons) {
-                    wn.deleteConnections();
-                }
-            }
-        }
-    }
 
     /**
      * Sets the batchsize of the NeuralNetwork
