@@ -303,6 +303,7 @@ public class NeuralNetwork {
      * Saves the NeuralNetwork to a file
      */
     public void save(String path) {
+        boolean hasHiddenLayers = false;
         ArrayList<Float> weights = new ArrayList<>();
         File file = new File(path);
         if(!file.exists()) {
@@ -319,7 +320,8 @@ public class NeuralNetwork {
                 weights.add(c.getWeight());
             }
         }
-        if(!(hiddenLayers.size() == 0)) { //hiddenlayers
+        if(!(hiddenLayers.size() == 0)) { // has HiddenLayers
+            hasHiddenLayers = true;
             for (int i = hiddenLayers.size(); i > 0; i--) {
                 for (int j = 0; j < hiddenLayers.get(i - 1).neurons.size(); j++) {
                     for(Connection c : hiddenLayers.get(i - 1).neurons.get(j).getConnections()) {
@@ -332,10 +334,14 @@ public class NeuralNetwork {
 
         try {
             FileWriter fw = new FileWriter(path);
-            fw.write("InputNeurons: " + inputLayer.neurons.size() + "\n");
-            fw.write("HiddenLayer: " + hiddenLayers.size() + "\n");
-            fw.write("HiddenNeurons" + hiddenLayers.get(0).neurons.size() + "\n");
-            fw.write("OutputNeurons" + outputLayer.neurons.size() + "\n");
+            fw.write("InputNeurons: " + inputLayer.neurons.size() + "~");
+            fw.write("HiddenLayer: " + hiddenLayers.size() + "~");
+            if(hasHiddenLayers) {
+                fw.write("HiddenNeurons: " + hiddenLayers.get(0).neurons.size() + "~");
+            } else {
+                fw.write("HiddenNeurons: 0~");
+            }
+            fw.write("OutputNeurons: " + outputLayer.neurons.size() + "~");
             fw.write("#");
             for(Float f : weights) {
                 fw.write(f.toString() + "#");
@@ -393,6 +399,25 @@ public class NeuralNetwork {
         }
 
         //TODO: meta String auswerten
+        String[] metavalues = meta.split("~");
+        int inputneurons = 0;
+        int hiddenlayer = 0;
+        int hiddenneurons = 0;
+        int outputneurons = 0;
+        for(int i = 0; i < metavalues.length; i++) {
+            int index = metavalues[i].indexOf(": ");
+            metavalues[i] = metavalues[i].substring(index);
+            if(i == 0) {
+                inputneurons = Integer.parseInt(metavalues[i].substring(2));
+            } else if(i == 1) {
+                hiddenlayer = Integer.parseInt(metavalues[i].substring(2));
+            } else if(i == 2) {
+                hiddenneurons = Integer.parseInt(metavalues[i].substring(2));
+            } else if(i == 3) {
+                outputneurons = Integer.parseInt(metavalues[i].substring(2));
+            }
+        }
+
 
         float[] weightsArray = new float[weights.size()];
         int index = 0;
@@ -408,8 +433,11 @@ public class NeuralNetwork {
 
         NeuralNetwork nn = new NeuralNetwork();
 
-        InputLayer inputLayer = nn.createInputLayer(4);
-        OutputLayer outputLayer = nn.createOutputLayer(3);
+        InputLayer inputLayer = nn.createInputLayer(inputneurons);
+        if(hiddenlayer > 0)  {
+            nn.createHiddenLayer(hiddenneurons, hiddenlayer);
+        }
+        OutputLayer outputLayer = nn.createOutputLayer(outputneurons);
 
         nn.deleteConnections();
         nn.reset();
