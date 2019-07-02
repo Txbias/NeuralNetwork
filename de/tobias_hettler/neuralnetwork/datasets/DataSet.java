@@ -1,0 +1,24 @@
+package de.tobias_hettler.neuralnetwork.datasets;
+
+import java.util.ArrayList;
+
+public class DataSet {
+
+    private final ArrayList<ArrayList<Float>> inputs;
+    private final ArrayList<ArrayList<Float>> outputs;
+
+    public DataSet(ArrayList<ArrayList<Float>> inputs, ArrayList<ArrayList<Float>> outputs) {
+        this.inputs = inputs;
+        this.outputs = outputs;
+    }
+
+    public ArrayList<ArrayList<Float>> getInputs() {
+        return inputs;
+    }
+
+    public ArrayList<ArrayList<Float>> getOutputs() {
+        return outputs;
+    }
+
+
+}

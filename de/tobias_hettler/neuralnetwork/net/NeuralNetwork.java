@@ -407,7 +407,6 @@ public class NeuralNetwork {
             }
         }
 
-
         String weightsAsString = "";
         String line;
         try {
