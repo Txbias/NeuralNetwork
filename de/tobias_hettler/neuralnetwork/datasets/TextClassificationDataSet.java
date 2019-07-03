@@ -2,12 +2,12 @@ package de.tobias_hettler.neuralnetwork.datasets;
 
 import java.util.ArrayList;
 
-public class DataSet {
+public class TextClassificationDataSet {
 
     private final ArrayList<ArrayList<Float>> inputs;
-    private final ArrayList<ArrayList<Float>> outputs;
+    private final ArrayList<Integer> outputs;
 
-    public DataSet(ArrayList<ArrayList<Float>> inputs, ArrayList<ArrayList<Float>> outputs) {
+    public TextClassificationDataSet(ArrayList<ArrayList<Float>> inputs, ArrayList<Integer> outputs) {
         this.inputs = inputs;
         this.outputs = outputs;
     }
@@ -16,7 +16,7 @@ public class DataSet {
         return inputs;
     }
 
-    public ArrayList<ArrayList<Float>> getOutputs() {
+    public ArrayList<Integer> getOutputs() {
         return outputs;
     }
 
