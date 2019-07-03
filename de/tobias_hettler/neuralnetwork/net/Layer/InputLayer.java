@@ -4,7 +4,10 @@ import de.tobias_hettler.neuralnetwork.neurons.InputNeuron;
 
 import java.util.ArrayList;
 
-
+/**
+ * The first Layer in the NeuralNetwork
+ * Takes the inputs for the NN
+ */
 public class InputLayer extends Layer {
 
 

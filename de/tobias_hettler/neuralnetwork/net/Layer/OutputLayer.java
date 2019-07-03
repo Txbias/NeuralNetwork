@@ -4,7 +4,9 @@ import de.tobias_hettler.neuralnetwork.neurons.WorkingNeuron;
 
 import java.util.ArrayList;
 
-
+/**
+ * The last Layer in the NeuralNetwork
+ */
 public class OutputLayer extends Layer {
 
 

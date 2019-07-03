@@ -6,10 +6,14 @@ import de.tobias_hettler.neuralnetwork.activationfunctions.ActivationFunction;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The main Neuron of the NN
+ * OutputLayer and HiddenLayer consist of WorkingNeurons
+ */
 public class WorkingNeuron extends Neuron {
 
     private List<Connection> connections = new ArrayList<>();
-    private ActivationFunction activationFunction = ActivationFunction.ActivationSigmoid;
+    private ActivationFunction activationFunction = ActivationFunction.ActivationReLU;
     private float smallDelta = 0;
     private float value = 0;
     private boolean valueClean = false;

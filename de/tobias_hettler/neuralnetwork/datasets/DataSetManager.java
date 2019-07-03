@@ -3,11 +3,14 @@ package de.tobias_hettler.neuralnetwork.datasets;
 import java.io.*;
 import java.util.ArrayList;
 
-public class DatasetManager {
+/**
+ * The Manager for the DataSets with Methods to load the DataSets
+ */
+public class DataSetManager {
 
 
     /**
-     * Creates two 2-dimensional ArrayLists with the Inputs and the Outputs in floats between 0 and 1
+     * Creates a TextToTextDataSet with the content of the given file
      * @param file The File of the TextToTextDataSet
      * @throws FileNotFoundException if the given File is not existing the Exception will be thrown
      * @return A TextToTextDataSet object
@@ -77,6 +80,13 @@ public class DatasetManager {
         return new TextToTextDataSet(input, output);
     }
 
+    /**
+     * Creates a TextClassificationDataSet with the content of the given file
+     * @param file The File of the DataSet
+     * @param amountclasses The amount of classes which are existing
+     * @return A TextClassificationDataSet
+     * @throws FileNotFoundException If the given File was not found it will throw this exception
+     */
     public static TextClassificationDataSet loadTextClassification(File file, int amountclasses) throws FileNotFoundException {
         if(!file.exists()) {
             throw new FileNotFoundException();
@@ -109,14 +119,6 @@ public class DatasetManager {
 
         int ascii;
         float asciiFloat;
-        /*for(String s : inputStrings) {
-            for(int i = 0; i < s.length(); i++) {
-                ascii = s.charAt(i);
-                asciiFloat = ascii / 127;
-                s = s.replaceAll(String.valueOf(s.charAt(i)), String.valueOf(asciiFloat)) + "/";
-            }
-        } */
-
         for(int i = 0; i < inputStrings.size(); i++) {
             ArrayList<Float> tmp = new ArrayList<>();
             for(int j = 0; j < inputStrings.get(i).length(); j++) {
@@ -137,6 +139,11 @@ public class DatasetManager {
         return new TextClassificationDataSet(input, OutputClassification);
     }
 
+    /**
+     * Returns the corresponding String of an ArrayList of Ascii coded Floats
+     * @param floats the Ascii coded Floats
+     * @return An String
+     */
     public static String returnToString(ArrayList<Float> floats) {
 
         String returnValue = "";

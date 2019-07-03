@@ -1,5 +1,8 @@
 package de.tobias_hettler.neuralnetwork.activationfunctions;
 
+/**
+ * Interface for all ActivationFunctions
+ */
 public interface ActivationFunction {
     public static Boolean ActivationBoolean = new Boolean();
     public static Identity ActivationIdentity = new Identity();

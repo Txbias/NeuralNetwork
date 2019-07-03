@@ -5,7 +5,9 @@ import de.tobias_hettler.neuralnetwork.activationfunctions.ActivationFunction;
 
 import java.util.ArrayList;
 
-
+/**
+ * Optional Layers between the InputLayer and the OutputLayer
+ */
 public class HiddenLayer extends Layer{
 
     public ArrayList<WorkingNeuron> neurons = new ArrayList<>();

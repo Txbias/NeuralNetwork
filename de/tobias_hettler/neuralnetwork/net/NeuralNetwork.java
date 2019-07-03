@@ -238,7 +238,7 @@ public class NeuralNetwork {
     /**
      * Sets the ActivationFunction for all OutputNeurons
      */
-    public void setActivationFunction(ActivationFunction activationFunction) {
+    public void setOutputActivationFunction(ActivationFunction activationFunction) {
         if (!hasOutputLayer) {
             System.out.println("Please create an Outputlayer than set the Activationfunction.");
             throw new NullPointerException();
@@ -479,7 +479,7 @@ public class NeuralNetwork {
 
         nn.deleteConnections();
         nn.reset();
-        nn.setActivationFunction(ActivationFunction.ActivationIdentity);
+        nn.setOutputActivationFunction(ActivationFunction.ActivationIdentity);
 
         nn.createFullMesh(weightsArray);
 

@@ -2,6 +2,9 @@ package de.tobias_hettler.neuralnetwork.datasets;
 
 import java.util.ArrayList;
 
+/**
+ * A DataSet with a text input and a text output
+ */
 public class TextToTextDataSet {
 
     private final ArrayList<ArrayList<Float>> inputs;
