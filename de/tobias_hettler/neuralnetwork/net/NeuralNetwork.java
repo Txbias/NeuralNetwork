@@ -6,6 +6,7 @@ import de.tobias_hettler.neuralnetwork.net.Layer.OutputLayer;
 import de.tobias_hettler.neuralnetwork.neurons.InputNeuron;
 import de.tobias_hettler.neuralnetwork.neurons.WorkingNeuron;
 import de.tobias_hettler.neuralnetwork.net.Layer.InputLayer;
+import sun.util.resources.cldr.ar.CalendarData_ar_YE;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -251,7 +252,7 @@ public class NeuralNetwork {
     /**
      * Trains the NeuralNetwork with the Backpropagation method
      */
-    public void backpropagation(float[] shoulds, float epsilon) {
+    private void backpropagation(float[] shoulds, float epsilon) {
         if (!hasOutputLayer) {
             System.out.println("Please create first an Outputlayer than do backpropagation.");
             throw new NullPointerException();
@@ -294,6 +295,39 @@ public class NeuralNetwork {
             }
 
             trainingSample++;
+
+        }
+
+    }
+
+    /**
+     * Trains the NeuralNetwork with the given data
+     */
+    public void train(ArrayList<ArrayList<Float>> trainingInputs, ArrayList<float[]> trainingOutputs, float epsilon) {
+        if(trainingInputs.size() != trainingOutputs.size()) {
+            throw new IllegalArgumentException();
+        }
+
+        for(ArrayList<Float> af : trainingInputs) {
+            if(af.size() != inputLayer.neurons.size()) {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        for(float[] fr : trainingOutputs) {
+            if(fr.length != outputLayer.neurons.size()) {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        for(int i = 0; i < trainingInputs.size(); i++) {
+            for(int j = 0; j < trainingInputs.get(i).size(); j++) {
+                inputLayer.neurons.get(j).setValue(trainingInputs.get(i).get(j));
+            }
+
+            for(int k = 0; k < trainingOutputs.size(); k++) {
+                backpropagation(trainingOutputs.get(k), epsilon);
+            }
 
         }
 
