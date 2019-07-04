@@ -1,5 +1,8 @@
 package de.tobias_hettler.neuralnetwork.activationfunctions;
 
+/**
+ * HyperbolicTangent ActivationFunction
+ */
 public class HyperbolicTangent implements ActivationFunction{
     @Override
     public float activation(float input) {
