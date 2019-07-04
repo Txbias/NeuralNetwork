@@ -144,7 +144,7 @@ public class DataSetManager {
      * @param floats the Ascii coded Floats
      * @return An String
      */
-    public static String returnToString(ArrayList<Float> floats) {
+    public static String convertFloatToText(ArrayList<Float> floats) {
 
         String returnValue = "";
 
@@ -156,6 +156,26 @@ public class DataSetManager {
             System.out.println("ReturnValue: " + returnValue);
         }
 
+        return returnValue;
+    }
+
+    /**
+     * Encodes a given text into corresponding ascii values
+     * @param text A String which will be converted to the corresponding Floats
+     * @return A FloatArrayList
+     */
+    public static ArrayList<Float> convertTextToFloat(String text) {
+        ArrayList<Float> returnValue = new ArrayList<>();
+        int ascii;
+        float asciiFloat;
+        for(int i = 0; i < text.length(); i++) {
+            char current = text.charAt(i);
+            ascii = current;
+            asciiFloat = (float) ascii / 127;
+            returnValue.add(asciiFloat);
+            ascii = 0;
+            asciiFloat = 0;
+        }
         return returnValue;
     }
 
