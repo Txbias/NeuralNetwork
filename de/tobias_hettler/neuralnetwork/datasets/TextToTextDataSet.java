@@ -15,6 +15,11 @@ public class TextToTextDataSet {
         this.outputs = outputs;
     }
 
+    public TextToTextDataSet() {
+        inputs = new ArrayList<>();
+        outputs = new ArrayList<>();
+    }
+
     public ArrayList<ArrayList<Float>> getInputs() {
         return inputs;
     }

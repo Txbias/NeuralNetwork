@@ -57,7 +57,7 @@ public class DataSetManager {
                 ascii = current;
                 asciiFloat = (float) ascii / 127;
                 //asciiFloat = (float) (((int) (asciiFloat*100)) / 100.0);
-                System.out.println("AsciiFloat: " + asciiFloat);
+                //System.out.println("AsciiFloat: " + asciiFloat);
                 tmp.add(asciiFloat);
             }
             input.add(tmp);
@@ -126,7 +126,7 @@ public class DataSetManager {
                 ascii = current;
                 asciiFloat = (float) ascii / 127;
                 //asciiFloat = (float) (((int) (asciiFloat*100)) / 100.0);
-                System.out.println("AsciiFloat: " + asciiFloat);
+                //System.out.println("AsciiFloat: " + asciiFloat);
                 tmp.add(asciiFloat);
             }
             input.add(tmp);

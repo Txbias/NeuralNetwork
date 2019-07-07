@@ -77,6 +77,7 @@ public class NeuralNetwork {
      * Resets all neurons
      */
     public void reset() {
+        deleteConnections();
         for (int i = 0; i < hiddenLayers.size(); i++) {
             for (int j = 0; j < hiddenLayers.get(i).neurons.size(); j++) {
                 hiddenLayers.get(i).neurons.get(j).reset();
@@ -408,8 +409,8 @@ public class NeuralNetwork {
     /**
      * The NeuralNetwork predicts outputs for given inputs
      */
-    public float[] predict(float... inputs) {
-        if(inputs.length != inputLayer.neurons.size()) {
+    public ArrayList<Float> predict(ArrayList<Float> inputs) {
+        if(inputs.size() != inputLayer.neurons.size()) {
             throw new IllegalArgumentException();
         }
         if(!hasInputLayer | !hasOutputLayer) {
@@ -417,19 +418,19 @@ public class NeuralNetwork {
             throw new NullPointerException();
         }
 
-        float[] output = new float[outputLayer.neurons.size()];
+        ArrayList<Float> output = new ArrayList<>();
         for(int i = 0; i < inputLayer.neurons.size(); i++) {
-            inputLayer.neurons.get(i).setValue(inputs[i]);
+            getInputLayer().neurons.get(i).setValue(inputs.get(i));
         }
         for(int j = 0; j < outputLayer.neurons.size(); j++) {
-            output[j] = outputLayer.neurons.get(j).getValue();
+            output.add(getOutputLayer().neurons.get(j).getValue());
         }
 
         return output;
     }
 
     /**
-     * Loads a NeuralNetwork from a file
+     * Load a NeuralNetwork from a file
      */
     public static NeuralNetwork load(String path) {
         File file = new File(path);

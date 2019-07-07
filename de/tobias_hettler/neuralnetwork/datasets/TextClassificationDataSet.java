@@ -14,6 +14,11 @@ public class TextClassificationDataSet {
         this.outputs = outputs;
     }
 
+    public TextClassificationDataSet() {
+        inputs = new ArrayList<>();
+        outputs = new ArrayList<>();
+    }
+
     public ArrayList<ArrayList<Float>> getInputs() {
         return inputs;
     }
