@@ -1,6 +1,5 @@
 package de.tobias_hettler.neuralnetwork.net;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import de.tobias_hettler.neuralnetwork.activationfunctions.ActivationFunction;
 import de.tobias_hettler.neuralnetwork.net.Layer.HiddenLayer;
 import de.tobias_hettler.neuralnetwork.net.Layer.OutputLayer;
@@ -12,6 +11,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * The main class of the api. Everything is connected in this class
+ */
 public class NeuralNetwork {
 
     private ArrayList<HiddenLayer> hiddenLayers = new ArrayList<>();
@@ -44,6 +46,12 @@ public class NeuralNetwork {
         this.createInputLayer(inputNeurons);
         this.createOutputLayer(outputNeurons);
         this.createHiddenLayer(hiddenNeurons, hiddenLayer);
+        this.createFullMesh();
+    }
+
+    public NeuralNetwork(int inputNeurons, int outputNeurons) {
+        this.createInputLayer(inputNeurons);
+        this.createOutputLayer(outputNeurons);
         this.createFullMesh();
     }
 

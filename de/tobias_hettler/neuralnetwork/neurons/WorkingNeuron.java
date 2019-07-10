@@ -45,9 +45,8 @@ public class WorkingNeuron extends Neuron {
     }
 
     public void deleteConnections() {
-        for(Connection c : connections) {
-            connections.remove(c);
-            c = null;
+        for(int i = 0; i < connections.size(); i++) {
+            connections.remove(i);
         }
     }
 
