@@ -1,12 +1,12 @@
 package de.tobias_hettler.neuralnetwork.net;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import de.tobias_hettler.neuralnetwork.activationfunctions.ActivationFunction;
 import de.tobias_hettler.neuralnetwork.net.Layer.HiddenLayer;
 import de.tobias_hettler.neuralnetwork.net.Layer.OutputLayer;
 import de.tobias_hettler.neuralnetwork.neurons.InputNeuron;
 import de.tobias_hettler.neuralnetwork.neurons.WorkingNeuron;
 import de.tobias_hettler.neuralnetwork.net.Layer.InputLayer;
-import sun.util.resources.cldr.ar.CalendarData_ar_YE;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,6 +21,31 @@ public class NeuralNetwork {
     private boolean hasOutputLayer = false;
     private int trainingSample = 0;
     private int batchSize = 1;
+
+
+    public NeuralNetwork(int inputNeurons, int outputNeurons, int hiddenLayer, int hiddenNeurons, int batchSize, ActivationFunction af) {
+        this.createInputLayer(inputNeurons);
+        this.createOutputLayer(outputNeurons);
+        this.createHiddenLayer(hiddenNeurons, hiddenLayer);
+        this.createFullMesh();
+        this.setBatchSize(batchSize);
+        this.setOutputActivationFunction(af);
+    }
+
+    public NeuralNetwork(int inputNeurons, int outputNeurons, int batchSize, ActivationFunction af) {
+        this.createInputLayer(inputNeurons);
+        this.createOutputLayer(outputNeurons);
+        this.createFullMesh();
+        this.setBatchSize(batchSize);
+        this.setOutputActivationFunction(af);
+    }
+
+    public NeuralNetwork(int inputNeurons, int outputNeurons, int hiddenLayer, int hiddenNeurons) {
+        this.createInputLayer(inputNeurons);
+        this.createOutputLayer(outputNeurons);
+        this.createHiddenLayer(hiddenNeurons, hiddenLayer);
+        this.createFullMesh();
+    }
 
     /**
      * Creates a new InputLayer with given amount of neurons
@@ -347,6 +372,13 @@ public class NeuralNetwork {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            try {
+                file.delete();
+                file.createNewFile();
+            } catch (IOException e) {
+
+            }
         }
 
 
@@ -504,7 +536,7 @@ public class NeuralNetwork {
 
 
 
-        NeuralNetwork nn = new NeuralNetwork();
+        NeuralNetwork nn = new NeuralNetwork(inputneurons, outputneurons, hiddenlayer, hiddenneurons);
 
         InputLayer inputLayer = nn.createInputLayer(inputneurons);
         if(hiddenlayer > 0)  {
