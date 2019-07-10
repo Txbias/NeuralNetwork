@@ -9,6 +9,7 @@ import de.tobias_hettler.neuralnetwork.net.Layer.InputLayer;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -347,6 +348,10 @@ public class NeuralNetwork {
                 throw new IllegalArgumentException();
             }
         }
+
+        long shuffleSeed = System.nanoTime();
+        Collections.shuffle(trainingInputs, new Random(shuffleSeed));
+        Collections.shuffle(trainingOutputs, new Random(shuffleSeed));
 
         for(float[] fr : trainingOutputs) {
             if(fr.length != outputLayer.neurons.size()) {
