@@ -368,6 +368,21 @@ public class NeuralNetwork {
     }
 
     /**
+     * Train the NeuralNetwork with the given data
+     * @param epochs indicates how often the NeuralNetwork trains
+     */
+    public void train(ArrayList<ArrayList<Float>> trainingInputs, ArrayList<float[]> trainingOutputs, float epsilon, int epochs) {
+        if(epochs <= 1) {
+            System.out.println("Epochs must be at least 2");
+            throw new IllegalArgumentException();
+        }
+
+        for(int i = 0; i < epochs; i++) {
+            train(trainingInputs, trainingOutputs, epsilon);
+        }
+    }
+
+    /**
      * Saves the NeuralNetwork to a file
      */
     public void save(String path) {
