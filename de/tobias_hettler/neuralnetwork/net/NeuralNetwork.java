@@ -56,6 +56,10 @@ public class NeuralNetwork {
         this.createFullMesh();
     }
 
+    public NeuralNetwork() {
+
+    }
+
     /**
      * Creates a new InputLayer with given amount of neurons
      */
@@ -111,7 +115,6 @@ public class NeuralNetwork {
      * Resets all neurons
      */
     public void reset() {
-        deleteConnections();
         for (int i = 0; i < hiddenLayers.size(); i++) {
             for (int j = 0; j < hiddenLayers.get(i).neurons.size(); j++) {
                 hiddenLayers.get(i).neurons.get(j).reset();
@@ -349,15 +352,15 @@ public class NeuralNetwork {
             }
         }
 
-        long shuffleSeed = System.nanoTime();
-        Collections.shuffle(trainingInputs, new Random(shuffleSeed));
-        Collections.shuffle(trainingOutputs, new Random(shuffleSeed));
-
         for(float[] fr : trainingOutputs) {
             if(fr.length != outputLayer.neurons.size()) {
                 throw new IllegalArgumentException();
             }
         }
+
+        long shuffleSeed = System.nanoTime();
+        Collections.shuffle(trainingInputs, new Random(shuffleSeed));
+        Collections.shuffle(trainingOutputs, new Random(shuffleSeed));
 
         for(int i = 0; i < trainingInputs.size(); i++) {
             for(int j = 0; j < trainingInputs.get(i).size(); j++) {
@@ -377,7 +380,7 @@ public class NeuralNetwork {
      * @param epochs indicates how often the NeuralNetwork trains
      */
     public void train(ArrayList<ArrayList<Float>> trainingInputs, ArrayList<float[]> trainingOutputs, float epsilon, int epochs) {
-        if(epochs <= 1) {
+        if(epochs < 1) {
             System.out.println("Epochs must be at least 2");
             throw new IllegalArgumentException();
         }
@@ -480,10 +483,10 @@ public class NeuralNetwork {
 
         ArrayList<Float> output = new ArrayList<>();
         for(int i = 0; i < inputLayer.neurons.size(); i++) {
-            getInputLayer().neurons.get(i).setValue(inputs.get(i));
+            inputLayer.neurons.get(i).setValue(inputs.get(i));
         }
         for(int j = 0; j < outputLayer.neurons.size(); j++) {
-            output.add(getOutputLayer().neurons.get(j).getValue());
+            output.add(outputLayer.neurons.get(j).getValue());
         }
 
         return output;
